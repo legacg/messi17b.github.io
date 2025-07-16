@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Document Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .document-viewer {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px;
+            height: 500px;
+            overflow: hidden;
+        }
+        .document-viewer iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .document-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>VIEW OUR ITINERIES</h1>
+    <div class="container">
+        <div class="document-viewer">
+            <div class="document-title">3-Day SAVANNAH WILDERNESS ITINERY. - UGANDA</div>
+            <iframe src="img/intenay1.docx"></iframe>
+        </div>
+        <div class="document-viewer">
+            <div class="document-title">8 DAYS GORILLAS AND GAME FLY-IN SAFARI (1)</div>
+            <iframe  src="img/intenay2.docx"></iframe>
+        </div>
+        <div class="document-viewer">
+            <div class="document-title">CHIMPS AND GORILLAS - RWANDA GROUP TOUR</div>
+            <iframe src="img/intenay3.docx"></iframe>
+        </div>
+        <div class="document-viewer">
+            <div class="document-title">21 GORILLAS, CHIMPS GAME AND CULTURE AND ADVENTURE SAFARI</div>
+            <iframe src="img/intenay4.docx"></iframe>
+            
+        </div>
+
+        
+    </div>
+
+
+<h1>VIEW OUR ITINERIES</h1>
+    <div class="container">
+        <div class="document-viewer">
+            <div class="document-title">14 Day GAME,CHIMPS AND GORILLAS FOR DAWN</div>
+            <iframe src="img/intenay5.docx"></iframe>
+        </div>
+        <div class="document-viewer">
+            <div class="document-title">BIRDING AND PRIMATE SAFARI - UGANDA</div>
+            <iframe  src="img/intenay6.docx"></iframe>
+        </div>
+        <div class="document-viewer">
+            <div class="document-title">8 DAYS GORILLAS AND GAME FLY-IN SAFARI</div>
+            <iframe src="img/intenay7.docx"></iframe>
+        </div>
+        <div class="document-viewer">
+            <div class="document-title">4 DAYS KENYA - NAKURU AND MASAI MARA</div>
+            <iframe src="img/intenay4.docx"></iframe>
+            
+        </div>
+
+    <script>
+        // You can add JavaScript functionality here if needed
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Document viewer ready');
+            
+            // Example: Add click handlers or other interactions
+            const viewers = document.querySelectorAll('.document-viewer');
+            viewers.forEach(viewer => {
+                viewer.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIEW OUR ITINERIES</title>
+    <script src="https://unpkg.com/mammoth@1.4.0/mammoth.browser.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .document-viewer {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px;
+            min-height: 500px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .document-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .document-content {
+            border: 1px solid #ddd;
+            padding: 15px;
+            height: 400px;
+            overflow-y: auto;
+        }
+        .file-input {
+            margin-bottom: 10px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+    </style>
+
+<script>
+        function loadDocument(inputId, outputId) {
+            const fileInput = document.getElementById(inputId);
+            const output = document.getElementById(outputId);
+            
+            if (fileInput.files.length === 0) {
+                output.innerHTML = "<p>Please select a file first.</p>";
+                return;
+            }
+            
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            
+            reader.onload = function(event) {
+                const arrayBuffer = event.target.result;
+                
+                mammoth.extractRawText({arrayBuffer: arrayBuffer})
+                    .then(function(result) {
+                        output.innerHTML = result.value.replace(/\n/g, "<br>");
+                    })
+                    .catch(function(error) {
+                        output.innerHTML = "<p>Error loading document: " + error.message + "</p>";
+                    });
+            };
+            
+            reader.onerror = function() {
+                output.innerHTML = "<p>Error reading file.</p>";
+            };
+            
+            reader.readAsArrayBuffer(file);
+        }
+    </script>
+</body>
+</html>
